@@ -1,0 +1,178 @@
+#include <iostream>
+#include <queue>
+#include <limits>
+using namespace std;
+
+template <typename T>
+class Node
+{
+public:
+    T data;
+    Node *left;
+    Node *right;
+
+    Node(T value)
+    {
+        data = value;
+        left = right = nullptr;
+    }
+};
+
+template <typename T>
+class BinaryTree
+{
+private:
+    Node<T> *root;
+
+    Node<T> *insert(Node<T> *node, T value)
+    {
+        if (node == nullptr)
+            return new Node<T>(value);
+
+        if (value < node->data)
+            node->left = insert(node->left, value);
+        else
+            node->right = insert(node->right, value);
+
+        return node;
+    }
+
+    void inorder(Node<T> *node)
+    {
+        if (node != nullptr)
+        {
+            inorder(node->left);
+            cout << node->data << " ";
+            inorder(node->right);
+        }
+    }
+
+    void preorder(Node<T> *node)
+    {
+        if (node != nullptr)
+        {
+            cout << node->data << " ";
+            preorder(node->left);
+            preorder(node->right);
+        }
+    }
+
+    void postorder(Node<T> *node)
+    {
+        if (node != nullptr)
+        {
+            postorder(node->left);
+            postorder(node->right);
+            cout << node->data << " ";
+        }
+    }
+
+    int height(Node<T> *node)
+    {
+        if (node == nullptr)
+            return -1;
+        int leftHeight = height(node->left);
+        int rightHeight = height(node->right);
+        return 1 + max(leftHeight, rightHeight);
+    }
+
+    int countLeaves(Node<T> *node)
+    {
+        if (node == nullptr)
+            return 0;
+        if (node->left == nullptr && node->right == nullptr)
+            return 1;
+        return countLeaves(node->left) + countLeaves(node->right);
+    }
+
+    int countNodes(Node<T> *node)
+    {
+        if (node == nullptr)
+            return 0;
+        return 1 + countNodes(node->left) + countNodes(node->right);
+    }
+
+    void deleteTree(Node<T> *node)
+    {
+        if (node == nullptr)
+            return;
+        deleteTree(node->left);
+        deleteTree(node->right);
+        delete node;
+    }
+
+    T findMaxInBinaryTree(Node<T> *node)
+    {
+        if (node == nullptr)
+            return numeric_limits<T>::lowest();
+
+        T current = node->data;
+        T leftMax = findMaxInBinaryTree(node->left);
+        T rightMax = findMaxInBinaryTree(node->right);
+
+        return max(current, max(leftMax, rightMax));
+    }
+
+public:
+    BinaryTree()
+    {
+        root = nullptr;
+    }
+
+    void insert(T value)
+    {
+        root = insert(root, value);
+    }
+
+    void printInorder()
+    {
+        cout << "Inorder: ";
+        inorder(root);
+        cout << endl;
+    }
+
+    void printPreorder()
+    {
+        cout << "Preorder: ";
+        preorder(root);
+        cout << endl;
+    }
+
+    void printPostorder()
+    {
+        cout << "Postorder: ";
+        postorder(root);
+        cout << endl;
+    }
+
+    int height()
+    {
+        return height(root);
+    }
+
+    int countLeaves()
+    {
+        return countLeaves(root);
+    }
+
+    int countNodes()
+    {
+        return countNodes(root);
+    }
+
+    void clear()
+    {
+        deleteTree(root);
+        root = nullptr;
+    }
+
+    ~BinaryTree()
+    {
+        clear();
+    }
+
+    T findMaxInBinaryTree()
+    {
+        return findMaxInBinaryTree(root);
+    }
+};
