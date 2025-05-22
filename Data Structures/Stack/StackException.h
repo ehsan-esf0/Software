@@ -1,3 +1,6 @@
+#ifndef STACKEXCEPTION_H
+#define STACKEXCEPTION_H
+
 #include <iostream>
 #include <string>
 
@@ -14,3 +17,5 @@ public:
         return message.c_str();
     }
 };
+
+#endif

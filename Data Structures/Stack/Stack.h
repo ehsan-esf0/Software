@@ -33,7 +33,7 @@ public:
         return topIndex == -1;
     }
 
-    void push(T value)
+    void push(const T &value)
     {
         if (isFull())
         {
@@ -43,18 +43,18 @@ public:
         data[topIndex] = value;
     }
 
-    void pop()
-    {
-        if (isEmpty())
-        {
+    void pop() {
+        if (isEmpty()) {
             throw StackException("Stack is empty");
         }
         topIndex--;
     }
 
-    bool isEmpty() const
-    {
-        return topIndex == -1;
+    T top() const {
+        if (isEmpty()) {
+            throw StackException("Stack is empty");
+        }
+        return data[topIndex];
     }
 
     int size() const
