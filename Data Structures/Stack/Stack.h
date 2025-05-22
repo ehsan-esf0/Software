@@ -23,12 +23,12 @@ public:
         delete[] data;
     }
 
-    bool isFull()
+    bool isFull() const
     {
         return topIndex == capacity - 1;
     }
 
-    bool isEmpty()
+    bool isEmpty() const
     {
         return topIndex == -1;
     }
