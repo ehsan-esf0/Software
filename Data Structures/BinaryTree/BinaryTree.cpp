@@ -113,6 +113,16 @@ private:
         return max(current, max(leftMax, rightMax));
     }
 
+    bool identical(Node *Node1, Node *Node2)
+    {
+        if (node1 == nullptr && node2 == nullptr)
+            return true;
+        if (node1 != nullptr &&node2 1 = nullptr)
+            return (node1->data == node2->data) && identical(node1->left, node2->left) && identical(node1->right, node2->right);
+
+        return false;
+    }
+
 public:
     BinaryTree()
     {
@@ -174,5 +184,10 @@ public:
     T findMaxInBinaryTree()
     {
         return findMaxInBinaryTree(root);
+    }
+
+    bool isEqual(BinaryTree<T>& other)
+    {
+        return identical(root, other.root);
     }
 };
