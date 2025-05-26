@@ -21,4 +21,15 @@ int main()
     cout << numbers[0] << endl;
     cout << numbers[1] << endl;
     cout << numbers[2] << endl;
+    cout << *(numbers + 2) << endl;
+    delete[] numbers;
+    delete number;
+
+    int s = 100;
+    int *ptr = &s;
+    int **pptr = &ptr;
+    cout << s << endl;
+    cout << *ptr << endl;
+    cout << **pptr << endl;
+    cout << pptr << " | " << &ptr << endl;
 }
