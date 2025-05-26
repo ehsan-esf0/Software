@@ -230,3 +230,82 @@ cout << *(p + 1); // prints 2
 🧯 Use smart pointers (`std::unique_ptr`, `std::shared_ptr`) in modern C++
 
 ---
+
+# 📘 Why You Don't Use `*` When Indexing a Pointer in C++
+
+---
+
+## 🔹 Basic Example
+
+```cpp
+int* numbers = new int[3];
+numbers[0] = 10;
+numbers[1] = 20;
+numbers[2] = 30;
+
+cout << numbers[0] << endl;  // ✅ Correct
+```
+
+---
+
+## ❓ But Why No `*`?
+
+You might wonder:
+
+> Shouldn’t I write `*numbers[0]` to get the value?
+
+🔴 **No!** That’s actually wrong and can cause a crash!
+
+---
+
+## 🔍 Behind the Scenes
+
+In C++, the index operator `[]` **already includes dereferencing**!
+
+```cpp
+numbers[i]   ≡   *(numbers + i)
+```
+
+So:
+
+```cpp
+numbers[0]   ≡   *(numbers + 0)   ≡   *numbers
+numbers[1]   ≡   *(numbers + 1)
+```
+
+✅ That's why **you don’t need `*`** — it’s already built-in with `[]`.
+
+---
+
+## 🔴 Incorrect Usage
+
+```cpp
+cout << *numbers[1];  // ❌ WRONG!
+```
+
+Why?
+
+Because `numbers[1]` is an `int`, like `20`.
+So `*numbers[1]` means `*20`, which tries to access memory address `20`.
+➡️ **Undefined behavior!** (🚫 crash or garbage)
+
+---
+
+## ✅ Correct Usages
+
+| Syntax           | Meaning                                           |
+| ---------------- | ------------------------------------------------- |
+| `*numbers`       | Value at address `numbers` → same as `numbers[0]` |
+| `*(numbers + 1)` | Value at second slot → same as `numbers[1]`       |
+| `numbers[2]`     | Value at third slot (auto-dereferenced)           |
+
+---
+
+## 📌 Summary Rules
+
+* ✅ Use `*pointer` for single values.
+* ✅ Use `pointer[i]` for arrays.
+* ❌ Never use `*pointer[i]` unless `pointer[i]` is itself a pointer.
+
+---
+
