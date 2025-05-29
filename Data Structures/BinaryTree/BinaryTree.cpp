@@ -208,6 +208,13 @@ public:
         return findMaxInBinaryTree(root);
     }
 
+    void printLevelOrder()
+    {
+        cout << "Level Order: ";
+        levelOrder(root);
+        cout << endl;
+    }
+
     bool isEqual(BinaryTree<T> &other)
     {
         return identical(root, other.root);
