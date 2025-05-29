@@ -67,6 +67,28 @@ private:
         }
     }
 
+    void levelOrder(Node<T> *node)
+    {
+        if (node == nullptr)
+            return;
+
+        queue<Node<T> *> q;
+        q.push(node);
+
+        while (!q.empty())
+        {
+            Node<T> *current = q.front();
+            q.pop();
+
+            cout << current->data << " ";
+
+            if (current->left != nullptr)
+                q.push(current->left);
+            if (current->right != nullptr)
+                q.push(current->right);
+        }
+    }
+
     int height(Node<T> *node)
     {
         if (node == nullptr)
@@ -186,7 +208,7 @@ public:
         return findMaxInBinaryTree(root);
     }
 
-    bool isEqual(BinaryTree<T>& other)
+    bool isEqual(BinaryTree<T> &other)
     {
         return identical(root, other.root);
     }
