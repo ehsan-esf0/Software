@@ -28,5 +28,4 @@ int main() {
     Person p1;
     p1.getName() = "ehsan";
     cout << p1.getName() << endl;
-
 }

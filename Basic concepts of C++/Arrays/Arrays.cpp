@@ -33,6 +33,8 @@ int main()
     v.push_back(4);
     v[0] = 10;
 
+
+    
     int* dynamicArr = new int[10];
     delete[] dynamicArr; 
 }

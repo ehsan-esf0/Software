@@ -1,4 +1,4 @@
-# 📘 C++ Iterators – Complete Guide
+# 📘 C++ Iterators
 
 ---
 

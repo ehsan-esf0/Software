@@ -1,5 +1,4 @@
-
-# 🎭 Run-time Polymorphism in C++ — Complete Guide
+# 🎭 Run-time Polymorphism in C++
 
 ---
 
@@ -141,5 +140,3 @@ int main() {
 - 🚫 Avoid calling virtual functions from constructors/destructors.
 
 ---
-
-✨ **Happy coding!** ✨

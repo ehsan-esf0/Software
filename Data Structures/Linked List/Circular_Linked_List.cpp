@@ -70,7 +70,6 @@ public:
                 found = true;
                 if (current == tail && current == tail->next)
                 {
-                    // فقط یک گره در لیست
                     delete current;
                     tail = nullptr;
                 }
@@ -93,7 +92,6 @@ public:
         }
     }
 
-    // پاک‌سازی کامل
     void clear()
     {
         if (!tail)
