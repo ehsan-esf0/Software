@@ -33,6 +33,16 @@ int main()
     v.push_back(4);
     v[0] = 10;
 
+    // char* vs char[]
+    char* str = "Hello";
+    char str2[] = "Hello";
+
+    str[0] = 'H'; // char* can be modified
+    str2[0] = 'H'; // char[] cannot be modified
+    
+    cout << str << endl;
+    cout << str2 << endl;
+
 
     
     int* dynamicArr = new int[10];
