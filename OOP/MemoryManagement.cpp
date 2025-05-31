@@ -48,6 +48,11 @@ public:
         return *this;
     }
 
+    Person(Person&& other) noexcept : age(other.age) {
+        name = other.name;
+        other.name = nullptr;
+    }
+
     
     ~Person() {
         delete[] name;
