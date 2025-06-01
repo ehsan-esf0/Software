@@ -215,3 +215,111 @@ connect(btn, &QPushButton::clicked, [=]() -> void {
 | Return  | `->`   | Return type of lambda (optional)                  |
 | Body    | `{}`   | Function body (like slot content)                 |
 
+
+## 📘 Qt `connect()` — Understanding `this` vs `nullptr`
+
+---
+
+### 🔹 Function Signature Reminder
+
+```cpp
+QObject::connect(sender, signal, receiver, lambda);
+```
+
+* **`sender`**: the object emitting the signal.
+* **`signal`**: the signal emitted (e.g., `&QPushButton::clicked`).
+* **`receiver`**: the object that "owns" the connection.
+* **`lambda`**: the slot (anonymous function in this case).
+
+---
+
+### 🔍 Difference Between `this` and `nullptr`
+
+#### ✅ `this` as Receiver
+
+```cpp
+connect(button, &QPushButton::clicked, this, [this]() {
+    qDebug() << "Handled safely within this object";
+});
+```
+
+✔️ **Benefits:**
+
+* The connection is **owned by `this` object**.
+* If `this` gets destroyed (e.g., closing a widget), the connection is automatically disconnected.
+* Prevents **crashes or memory leaks**.
+* Ensures **safe access** to `this` and its members inside the lambda.
+
+---
+
+#### ⚠️ `nullptr` as Receiver
+
+```cpp
+connect(button, &QPushButton::clicked, nullptr, []() {
+    qDebug() << "Lambda has no receiver object";
+});
+```
+
+❌ **Risks:**
+
+* The connection is **not owned** by any object.
+* It will **not automatically disconnect** when any related object is destroyed.
+* If the lambda captures local or class variables (like `this`), and those objects are destroyed → **undefined behavior or crash**.
+* Manual `disconnect()` is required to clean it up.
+
+---
+
+### ✅ Use Case Comparison
+
+| Aspect                 | `this`                                 | `nullptr`                               |
+| ---------------------- | -------------------------------------- | --------------------------------------- |
+| Ownership              | Owned by the current object            | No ownership                            |
+| Auto disconnect        | ✅ Yes, when `this` is deleted          | ❌ No, must be manually disconnected     |
+| Safe for member access | ✅ Safe to use `this` inside the lambda | ⚠️ Dangerous if using `this` or members |
+| Memory leak risk       | ❌ Very low                             | ⚠️ High, if not disconnected manually   |
+| Recommended for        | GUI widgets, class-based connections   | One-time or stateless lambdas           |
+
+---
+
+### 🧠 Practical Advice
+
+* **Always use `this` as the receiver** if you're connecting inside a class or method and accessing members.
+* Use `nullptr` **only** for:
+
+  * Simple stateless lambdas.
+  * Short-lived operations.
+  * Global/static contexts.
+
+---
+
+### 🧪 Example with `this` (Safe)
+
+```cpp
+connect(button, &QPushButton::clicked, this, [this]() {
+    this->setWindowTitle("Clicked!");
+});
+```
+
+---
+
+### 🧪 Example with `nullptr` (Dangerous)
+
+```cpp
+connect(button, &QPushButton::clicked, nullptr, [this]() {
+    this->setWindowTitle("May crash if this is deleted!");
+});
+```
+
+💣 **If `this` is deleted before the button is clicked, this lambda will crash.**
+
+---
+
+### ✅ Safer Alternative: Capture `this` only if needed
+
+```cpp
+connect(button, &QPushButton::clicked, this, []() {
+    qDebug() << "Simple handler with no captured variables";
+});
+```
+
+---
