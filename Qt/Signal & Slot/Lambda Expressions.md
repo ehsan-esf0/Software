@@ -73,3 +73,145 @@ auto square = [](int x) -> int {
 ```
 
 ---
+
+## 🧠 Lambda Expressions in Qt (C++11+)
+
+Lambda expressions are anonymous functions that are especially powerful when used with Qt’s signal/slot mechanism.
+
+### ✅ General Syntax:
+
+```cpp
+[captures](parameters) -> return_type {
+    // function body
+};
+```
+
+---
+
+### 🔹 Breakdown of Lambda Components
+
+| Part            | Syntax    | Description                                              |
+| --------------- | --------- | -------------------------------------------------------- |
+| **Captures**    | `[]`      | Capture external variables from the surrounding scope    |
+| **Parameters**  | `()`      | Arguments passed to the lambda (typically from a signal) |
+| **Return Type** | `-> type` | Optional return type (usually deduced automatically)     |
+| **Body**        | `{}`      | The code to run when the lambda is invoked               |
+
+---
+
+### 🔹 Lambda Examples
+
+#### ➤ Lambda with No Captures or Parameters
+
+```cpp
+[]() {
+    qDebug() << "Hello from lambda!";
+};
+```
+
+#### ➤ Capturing Variables
+
+```cpp
+int x = 10, y = 5;
+
+[=]() { qDebug() << x + y; };  // Capture all by value
+[&]() { x++; y++; };           // Capture all by reference
+[x]() { qDebug() << x; };      // Capture only x by value
+[&y]() { y *= 2; };            // Capture only y by reference
+```
+
+#### ➤ Capturing `this` in Class Context
+
+```cpp
+[this]() {
+    this->setWindowTitle("Lambda Activated");
+};
+```
+
+---
+
+### 🔹 Connecting Lambda to Signal
+
+```cpp
+QPushButton *button = new QPushButton("Click Me");
+
+connect(button, &QPushButton::clicked, []() {
+    qDebug() << "Button clicked!";
+});
+
+QLineEdit *lineEdit = new QLineEdit;
+
+connect(lineEdit, &QLineEdit::textChanged, [](const QString &text) {
+    qDebug() << "Text changed to:" << text;
+});
+```
+
+---
+
+### 🔹 Lambda with Return Type
+
+```cpp
+auto multiply = [](int a, int b) -> int {
+    return a * b;
+};
+
+int result = multiply(3, 4); // result = 12
+```
+
+---
+
+### 🔹 Mutable Lambdas
+
+Allows modification of variables captured **by value** inside the lambda.
+
+```cpp
+int count = 0;
+
+auto inc = [count]() mutable {
+    count++;
+    qDebug() << "Count is now:" << count;
+};
+
+inc(); // prints 1
+inc(); // prints 1 again (count resets each time)
+```
+
+---
+
+### 🔹 One-Time Connection Example
+
+```cpp
+QPushButton *btn = new QPushButton("Click Once");
+QMetaObject::Connection c;
+
+c = connect(btn, &QPushButton::clicked, [=]() {
+    qDebug() << "Clicked just once!";
+    QObject::disconnect(c);
+});
+```
+
+---
+
+### 🔹 Full Example with All Components
+
+```cpp
+int a = 5;
+QPushButton *btn = new QPushButton("Click Me");
+
+connect(btn, &QPushButton::clicked, [=]() -> void {
+    qDebug() << "Captured a:" << a;
+    qDebug() << "Button was clicked!";
+});
+```
+
+---
+
+### 🎨 Recap Table
+
+| Element | Symbol | Description                                       |
+| ------- | ------ | ------------------------------------------------- |
+| Capture | `[]`   | External variables captured by value or reference |
+| Params  | `()`   | Input from the signal (like event parameters)     |
+| Return  | `->`   | Return type of lambda (optional)                  |
+| Body    | `{}`   | Function body (like slot content)                 |
+
