@@ -1,4 +1,4 @@
-```
+```cpp
 #include <QApplication>
 #include <QPushButton>
 #include <QWidget>
