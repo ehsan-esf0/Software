@@ -1,4 +1,4 @@
-# 1. Sender in Qt
+# Sender in Qt
 
 ---
 
