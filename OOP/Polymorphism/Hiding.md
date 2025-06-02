@@ -1,4 +1,4 @@
-### Overriding vs. Hiding
+### Overriding vs Hiding
 
 * **Overriding** happens when a derived class provides its own implementation of a **virtual** function.
 * If a function in the base class is **non-virtual**, and a derived class declares a function with the same name and signature, it **hides** the base function but does **not override** it.
