@@ -37,11 +37,27 @@ public:
     }
 };
 
+template<typename T>
+typename std::enable_if<std::is_integral<T>::value, void>::type
+printNumber(T value) {
+    std::cout << "Integer: " << value << std::endl;
+}
+
+template<typename T>
+typename std::enable_if<std::is_floating_point<T>::value, void>::type
+printNumber(T value) {
+    std::cout << "Float: " << value << std::endl;
+}
+
 int main()
 {
     myclass<int , double> a(10 , 6.242);
     myclass<double , string> b(10.5 , "number");
     a.display();
     b.display();
+
+    printNumber(10);
+    printNumber(10.5);
+
     return 0;
 }
