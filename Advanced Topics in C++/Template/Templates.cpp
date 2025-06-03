@@ -49,6 +49,22 @@ printNumber(T value) {
     std::cout << "Float: " << value << std::endl;
 }
 
+void print() {
+    std::cout << "(end)" << std::endl;
+}
+
+template<typename T, typename... Args>
+void print(T first, Args... args) {
+    std::cout << first << " ";
+    print(args...);
+}
+
+template<typename... Args>
+void countArgs(Args... args) {
+    std::cout << "Number of arguments: " << sizeof...(args) << std::endl;
+}
+
+
 int main()
 {
     myclass<int , double> a(10 , 6.242);
@@ -58,6 +74,10 @@ int main()
 
     printNumber(10);
     printNumber(10.5);
+
+    print(1, 2, 3, 4, 5);
+
+    countArgs(1, 2, 3, 4, 5);
 
     return 0;
 }
