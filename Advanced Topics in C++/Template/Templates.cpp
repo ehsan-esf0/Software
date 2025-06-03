@@ -1,13 +1,13 @@
 #include <iostream>
 using namespace std;
 
-template <typename T , typename U >
+template <typename T, typename U>
 class myclass
 {
 public:
     T x;
     U y;
-    myclass(T a , U b)
+    myclass(T a, U b)
     {
         x = a;
         y = b;
@@ -20,12 +20,12 @@ public:
 };
 
 template <typename T>
-class myclass<T , string>
+class myclass<T, string>
 {
 public:
     T x;
     string y;
-    myclass(T a , string b)
+    myclass(T a, string b)
     {
         x = a;
         y = b;
@@ -37,38 +37,60 @@ public:
     }
 };
 
-template<typename T>
+template <typename T>
 typename std::enable_if<std::is_integral<T>::value, void>::type
-printNumber(T value) {
+printNumber(T value)
+{
     std::cout << "Integer: " << value << std::endl;
 }
 
-template<typename T>
+template <typename T>
 typename std::enable_if<std::is_floating_point<T>::value, void>::type
-printNumber(T value) {
+printNumber(T value)
+{
     std::cout << "Float: " << value << std::endl;
 }
 
-void print() {
+void print()
+{
     std::cout << "(end)" << std::endl;
 }
 
-template<typename T, typename... Args>
-void print(T first, Args... args) {
+template <typename T, typename... Args>
+void print(T first, Args... args)
+{
     std::cout << first << " ";
     print(args...);
 }
 
-template<typename... Args>
-void countArgs(Args... args) {
+template <typename... Args>
+void countArgs(Args... args)
+{
     std::cout << "Number of arguments: " << sizeof...(args) << std::endl;
 }
 
+template <typename... Args>
+auto sum(Args... args)
+{
+    return (... + args);
+}
+
+template <typename... Args>
+auto product(Args... args)
+{
+    return (args * ...);
+}
+
+template <typename... Args>
+void print2(Args... args)
+{
+    (std::cout << ... << args) << " ";
+}
 
 int main()
 {
-    myclass<int , double> a(10 , 6.242);
-    myclass<double , string> b(10.5 , "number");
+    myclass<int, double> a(10, 6.242);
+    myclass<double, string> b(10.5, "number");
     a.display();
     b.display();
 
@@ -78,6 +100,10 @@ int main()
     print(1, 2, 3, 4, 5);
 
     countArgs(1, 2, 3, 4, 5);
+
+    cout << sum(1, 2, 3, 4, 5) << std::endl;
+    cout << product(1, 2, 3, 4, 5) << std::endl;
+    print2(1, 2, 3, 4, 5);
 
     return 0;
 }
