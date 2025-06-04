@@ -23,8 +23,8 @@ void operate(int x, int y, int (*func)(int, int)) {
 }
 
 int main() {
-    operate(3, 4, mul); 
-    operate(3, 4, add); 
+    operate(3, 4, &mul); 
+    operate(3, 4, &add); 
     operate(3, 4, sub); 
     operate(3, 4, divs); 
     return 0;
