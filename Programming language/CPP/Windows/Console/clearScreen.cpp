@@ -47,13 +47,11 @@ int main()
     Sleep(1000);
     clearScreen();
 
-    std::cout << "Screen cleared!\n";
-
-    std::cout << "..............................\n";
-    std::cout << "..............................\n";
-    std::cout << "..............................\n";
-    std::cout << "..............................\n";
-    std::cout << "..............................\n";
+    for (int i = 0; i < 20; i++)
+    {
+        std::cout << "....................\n";
+        Sleep(100);
+    }
 
     std::cout << "3 seconds...\n";
     Sleep(1000);
@@ -62,13 +60,14 @@ int main()
     std::cout << "1 seconds...\n";
     Sleep(1000);
 
-    clearRegion(5, 1, 5, 3);
-    Sleep(1000);
-    clearRegion(10, 1, 5, 3);
-    Sleep(1000);
-    clearRegion(15, 1, 5, 3);
-    Sleep(1000);
-    clearRegion(20, 1, 5, 3);
+    for (int i = 0; i < 20; i++)
+    {
+        for (int j = 0; j < 20; j++)
+        {
+            clearRegion(i, j, 1, 1);
+            Sleep(10);
+        }
+    }
 
     return 0;
 }
