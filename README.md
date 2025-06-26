@@ -16,9 +16,8 @@ This repository is a curated knowledge hub for mastering **core CS concepts** an
 ## 📌 **Core Topics**  
 
 ### 1. **Programming Languages**  
-- 📜 **C/C++**: Memory management, pointers, OOP, performance optimization.  
-- 🐍 **Python**: Scripting, automation, data analysis, and prototyping.  
-- *Other languages*: Java, Rust, Go (based on project needs).  
+- 📜 **C/C++/c#**: Memory management, pointers, OOP, performance optimization.  
+- 🐍 **Python**: Scripting, automation, data analysis, and prototyping.   
 
 ### 2. **Data Structures & Algorithms**  
 - ✅ Arrays, Linked Lists, Trees, Graphs, Hash Tables.  
@@ -26,16 +25,19 @@ This repository is a curated knowledge hub for mastering **core CS concepts** an
 - 🧩 Dynamic Programming, Recursion, Greedy Algorithms.  
 
 ### 3. **Databases**  
-- SQL (PostgreSQL/MySQL) vs. NoSQL (MongoDB, Redis).  
-- Indexing, query optimization, ACID transactions.  
+- 🗂️ SQL (PostgreSQL/MySQL) vs. NoSQL (MongoDB, Redis).  
+- ✉️ Indexing, query optimization, ACID transactions.  
 
 ### 4. **Operating Systems**  
-- Processes/Threads, Synchronization (mutexes, semaphores).  
-- Memory management, file systems, I/O.  
+- 🖥️ Processes/Threads, Synchronization (mutexes, semaphores).  
+- 💿 Memory management, file systems, I/O.  
 
 ### 5. **Software Engineering**  
-- System design principles (scalability, caching, load balancing).  
-- Design Patterns (Singleton, Observer, Factory, etc.).  
+- 📱 System design principles (scalability, caching, load balancing).  
+- 📱 Design Patterns (Singleton, Observer, Factory, etc.).  
+
+### 6. **Game developer**
+### 7. **Web developer**
 
 ---
 
