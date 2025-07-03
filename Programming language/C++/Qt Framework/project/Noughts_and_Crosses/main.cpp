@@ -1,4 +1,3 @@
-
 #include "gamepage.h"
 
 #include <QApplication>
