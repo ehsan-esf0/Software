@@ -1,4 +1,4 @@
-# ✅ QSpinBox Full Tutorial in PyQt6 (English)
+# QSpinBox in PyQt6
 
 ## 📌 What is QSpinBox?
 
