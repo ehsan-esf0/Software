@@ -1,4 +1,4 @@
-# 📚 Comprehensive Introduction to HTTP
+# 📚 Lesson 2 : Comprehensive Introduction to HTTP
 
 ---
 
