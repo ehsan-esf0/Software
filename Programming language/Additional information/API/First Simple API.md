@@ -129,10 +129,6 @@ http://127.0.0.1:5000/users
   {"id": 2, "name": "Sara"}
 ]
 ```
-Certainly! Here’s a detailed and complete explanation, fully in **English**, of all possible scenarios using the **Flask** (server-side) and **requests** (client-side) libraries for handling API interactions.
-
----
-
 # 🚩 Complete API Interaction using Flask & requests (Python)
 
 In any API-based Python application, there are typically two distinct roles:

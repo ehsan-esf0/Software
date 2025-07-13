@@ -1,4 +1,4 @@
-## **QListWidget in Qt 6 Python — English**
+## **QListWidget in Qt 6 Python**
 
 ### **What is QListWidget?**
 

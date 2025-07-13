@@ -1,4 +1,4 @@
-# 📚 Lesson 3: Comprehensive Introduction to REST API (English)
+# 📚 Lesson 3: Comprehensive Introduction to REST API
 
 ---
 
