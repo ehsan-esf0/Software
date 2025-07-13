@@ -1,8 +1,8 @@
 import telebot
 from telebot.types import InlineKeyboardMarkup, InlineKeyboardButton
 
-API_TOKEN = '7574553642:AAFiFsgY4g8wfg-HZBvJ4ZsyAlqwhxv50is'
-CHANNEL_USERNAME = '@carroFilm'
+API_TOKEN = ''
+CHANNEL_USERNAME = ''
 REQUIRED_CHANNELS = []
 bot = telebot.TeleBot(API_TOKEN)
 
