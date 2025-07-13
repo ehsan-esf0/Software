@@ -122,3 +122,137 @@ Telegram receives your `sendMessage` API call, processes it, and displays your r
                             ↓
                     📲 Telegram —[Displays Message]→ 👤 User
 ```
+
+
+## 🔄 Full Communication Flow Using **Long Polling**
+
+---
+
+### 🟢 **Step 0: No Webhook Is Set**
+
+In long polling, you do **not** set a webhook.
+
+If you had previously set one, you must remove it:
+
+```
+https://api.telegram.org/bot<YOUR_TOKEN>/deleteWebhook
+```
+
+Now your bot can use long polling.
+
+---
+
+### 🟡 **Step 1: A User Sends a Message to the Bot**
+
+For example, the user writes:
+
+```
+Hello bot!
+```
+
+---
+
+### 🟠 **Step 2: Telegram Stores the Message on Its Server**
+
+Telegram receives the message and waits for your bot to come and **ask for updates**.
+
+---
+
+### 🔵 **Step 3: Your Server Calls `getUpdates`**
+
+Your bot repeatedly calls this API to **ask Telegram if any new messages exist**:
+
+```http
+https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates
+```
+
+You can also add parameters like `offset`, `timeout`, etc.:
+
+```http
+https://api.telegram.org/bot<YOUR_TOKEN>/getUpdates?timeout=60
+```
+
+> This request will **wait up to 60 seconds** if there is no new message (this is why it’s called “long polling”).
+
+---
+
+### 🟣 **Step 4: Telegram Responds with Messages (If Any)**
+
+If there’s a new message, Telegram sends a JSON response like this:
+
+```json
+{
+  "ok": true,
+  "result": [
+    {
+      "update_id": 123456789,
+      "message": {
+        "message_id": 1,
+        "from": {
+          "id": 123456789,
+          "first_name": "Sara",
+          "username": "sara_user"
+        },
+        "chat": {
+          "id": 123456789,
+          "type": "private"
+        },
+        "text": "Hello bot!"
+      }
+    }
+  ]
+}
+```
+
+---
+
+### 🟤 **Step 5: Your Bot Processes the Message**
+
+Your bot extracts the data:
+
+```python
+text = update['message']['text']
+chat_id = update['message']['chat']['id']
+```
+
+---
+
+### ⚫ **Step 6: Your Bot Sends a Response via `sendMessage`**
+
+Now your server sends a **new request** to Telegram to respond to the user:
+
+```python
+requests.post(f"https://api.telegram.org/bot<YOUR_TOKEN>/sendMessage", json={
+    "chat_id": chat_id,
+    "text": "Hello! How can I help you?"
+})
+```
+
+---
+
+### 🔴 **Step 7: Telegram Delivers the Message to the User**
+
+The user now sees your response inside Telegram.
+
+---
+
+## ✅ Visual Summary – Long Polling
+
+```
+👤 User —[Message]→ 📲 Telegram [Stores it]
+                     ↑
+         🤖 Your Server —[getUpdates]→
+                     ←[JSON: new message]—
+         🤖 Your Server —[sendMessage]→ 📲 Telegram —→ 👤 User
+```
+
+---
+
+## 🔍 Key Differences with Webhook
+
+| Feature                 | Webhook                    | Long Polling               |
+| ----------------------- | -------------------------- | -------------------------- |
+| Who starts the action?  | Telegram calls your server | Your bot asks Telegram     |
+| Needs public URL?       | ✅ Yes                      | ❌ No                       |
+| Requires server online? | ✅ Yes (must accept HTTPS)  | ✅ Yes (but can be local)   |
+| Better for production?  | ✅ Yes                      | ⛔ Not recommended at scale |
