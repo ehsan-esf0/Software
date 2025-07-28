@@ -23,7 +23,7 @@ Called before `__init__`, responsible for creating the object instance (mostly u
 ```python
 class MyInt(int):
     def __new__(cls, value):
-        print("Creating MyInt")
+        print("Creating MyInt")~
         return super().__new__(cls, value)
 
 x = MyInt(5)  # Creating MyInt
